@@ -4,6 +4,7 @@
 **prepare**
 ```bash
 git clone https://github.com/Alexandrsv/hh-up
+cd hh-up
 cp .env.example .env
 nano .env
 ```
