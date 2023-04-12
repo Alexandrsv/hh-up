@@ -5,7 +5,6 @@ import { MY_RESUME_SELECTOR } from "./const";
 import { logIn } from "./actions/logIn";
 
 const main = async () => {
-  // Setup
   const browser = await chromium.launch({ headless: false, slowMo: 100 });
   const context = await browser.newContext({
     viewport: {
@@ -37,12 +36,15 @@ const main = async () => {
   }
 
   await page.getByRole("link", { name: "Мои резюме •" }).click();
+  console.log("Перешел на страницу Мои резюме");
 
-  await page.waitForSelector("[data-qa=resume-update-button_actions]");
+  await page.waitForLoadState("load");
+  console.log("Дождался загрузки страницы");
 
   if (!(await page.isVisible("text=Поднять в поиске"))) {
     console.log("Нет кнопки поднять в поиске");
   } else {
+    console.log("Есть кнопка поднять в поиске");
     await upResume(page);
   }
   // Teardown
