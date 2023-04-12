@@ -16,10 +16,15 @@ export const upResume = async (page: Page) => {
       await updateButtons[i].click();
       await page.waitForSelector("text=Поднять в поиске", { state: "hidden" });
 
-      try {
-        await page.getByRole("button", { name: "Закрыть" }).click();
-      } catch (e) {}
-
+      if (
+        await page.isVisible("[data-qa=bot-update-resume-modal__close-button]")
+      ) {
+        try {
+          await page.getByRole("button", { name: "Закрыть" }).click();
+        } catch (e) {
+          console.log("Не смог закрыть модалку, нет кнопки Закрыть");
+        }
+      }
       successUpCount++;
     } catch (e) {}
   }
