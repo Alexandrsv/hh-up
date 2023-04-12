@@ -1,0 +1,21 @@
+{
+  "name": "hh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.32.2",
+    "playwright": "^1.32.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "prettier": "^2.8.7",
+    "ts-node": "^10.9.1"
+  }
+}
