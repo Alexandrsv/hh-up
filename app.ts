@@ -81,6 +81,8 @@ const main = async () => {
 
   await page.getByRole("link", { name: "Мои резюме •" }).click();
 
+  await page.waitForSelector("[data-qa=resume-update-button_actions]");
+
   if (!(await page.isVisible("text=Поднять в поиске"))) {
     console.log("Нет кнопки поднять в поиске");
   } else {
