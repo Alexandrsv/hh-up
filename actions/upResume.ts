@@ -11,9 +11,9 @@ export const upResume = async (page: Page) => {
   console.log("Кнопок поднять в поиске: ", updateButtons.length);
 
   let successUpCount = 0;
-  for (let i = 0; i < updateButtons.length; i++) {
+  for (const button of updateButtons) {
     try {
-      await updateButtons[i].click();
+      await button.click();
       await page.waitForSelector("text=Поднять в поиске", { state: "hidden" });
 
       if (
