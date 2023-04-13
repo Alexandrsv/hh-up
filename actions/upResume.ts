@@ -11,22 +11,19 @@ export const upResume = async (page: Page) => {
   console.log("Кнопок поднять в поиске: ", updateButtons.length);
 
   let successUpCount = 0;
-  for (const button of updateButtons) {
-    try {
-      await button.click();
-      await page.waitForSelector("text=Поднять в поиске", { state: "hidden" });
 
-      if (
-        await page.isVisible("[data-qa=bot-update-resume-modal__close-button]")
-      ) {
-        try {
-          await page.getByRole("button", { name: "Закрыть" }).click();
-        } catch (e) {
-          console.log("Не смог закрыть модалку, нет кнопки Закрыть");
-        }
+  while (await page.isVisible("text=Поднять в поиске")) {
+    await page.click("text=Поднять в поиске");
+    if (
+      await page.isVisible("[data-qa=bot-update-resume-modal__close-button]")
+    ) {
+      try {
+        await page.getByRole("button", { name: "Закрыть" }).click();
+      } catch (e) {
+        console.log("Не смог закрыть модалку, нет кнопки Закрыть");
       }
-      successUpCount++;
-    } catch (e) {}
+    }
+    successUpCount++;
   }
   console.log("Поднято ", successUpCount, " резюме\n");
 };
