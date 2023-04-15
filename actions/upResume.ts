@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { UPDATE_RESUME_SELECTOR } from "../const";
+import { closeUpdateModal } from "./closeUpdateModal";
 
 export const upResume = async (page: Page) => {
   const updateButtons = await page
@@ -13,16 +14,9 @@ export const upResume = async (page: Page) => {
   let successUpCount = 0;
 
   while (await page.isVisible("text=Поднять в поиске")) {
+    await closeUpdateModal(page);
     await page.click("text=Поднять в поиске");
-    if (
-      await page.isVisible("[data-qa=bot-update-resume-modal__close-button]")
-    ) {
-      try {
-        await page.getByRole("button", { name: "Закрыть" }).click();
-      } catch (e) {
-        console.log("Не смог закрыть модалку, нет кнопки Закрыть");
-      }
-    }
+    await closeUpdateModal(page);
     successUpCount++;
   }
   console.log("Поднято ", successUpCount, " резюме\n");
