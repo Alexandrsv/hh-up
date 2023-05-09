@@ -5,13 +5,17 @@ import { MY_RESUME_SELECTOR } from "./const";
 import { logIn } from "./actions/logIn";
 
 const main = async () => {
-  const browser = await chromium.launch({ headless: true, slowMo: 300 });
+  const browser = await chromium.launch({ headless: false, slowMo: 300 });
   const context = await browser.newContext({
     viewport: {
       width: 1920,
       height: 1080,
     },
   });
+
+  await context.addInitScript(
+    "Object.defineProperty(navigator, 'webdriver', {get: () => false})"
+  );
 
   const page = await context.newPage();
   await loadCookies(page);
