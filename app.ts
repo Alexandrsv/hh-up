@@ -39,7 +39,7 @@ const main = async () => {
     console.log("Авторизация по кукам");
   }
 
-  await page.getByRole("link", { name: "Мои резюме •" }).click();
+  await page.getByRole("link", { name: "Мои резюме" }).click();
   console.log("Перешел на страницу Мои резюме");
 
   await page.waitForLoadState("load");
