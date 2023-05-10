@@ -4,7 +4,7 @@ import { saveCookies } from "./saveCookies";
 
 export const logIn = async (page: Page) => {
   await page.getByRole("link", { name: "Войти" }).click();
-  await page.waitForLoadState("load");
+  await page.waitForLoadState("domcontentloaded");
   await page.waitForSelector("text=Войти с паролем");
   await page.getByRole("button", { name: "Войти с паролем" }).click();
 
