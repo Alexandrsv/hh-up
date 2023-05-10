@@ -18,6 +18,12 @@ const main = async () => {
   );
 
   const page = await context.newPage();
+
+  await page.setExtraHTTPHeaders({
+    "User-Agent":
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+  });
+
   await loadCookies(page);
   await page.goto("https://hh.ru/");
   await page.route("**/*.{png,jpg,jpeg}", (route) => {
