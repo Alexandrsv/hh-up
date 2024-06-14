@@ -1,11 +1,11 @@
 import { chromium } from "playwright";
 import { upResume } from "./actions/upResume";
 import { loadCookies } from "./actions/loadCookies";
-import { MY_RESUME_SELECTOR } from "./const";
+import { HEADLESS, MY_RESUME_SELECTOR } from "./const";
 import { logIn } from "./actions/logIn";
 
 const main = async () => {
-  const browser = await chromium.launch({ headless: true, slowMo: 300 });
+  const browser = await chromium.launch({ headless: HEADLESS, slowMo: 300 });
   const context = await browser.newContext({
     viewport: {
       width: 1920,
