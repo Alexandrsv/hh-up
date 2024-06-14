@@ -19,7 +19,7 @@ export const logIn = async (page: Page) => {
   await page.getByRole("button", { name: "Войти", exact: true }).click();
 
   const captchaExists =
-    (await page.locator("div[class*=hhcaptcha]").count()) > 0;
+    (await page.locator("div[class*=hhcaptcha]")?.count()) > 0;
 
   if (captchaExists) {
     throw Error(
