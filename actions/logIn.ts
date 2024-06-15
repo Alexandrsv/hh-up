@@ -18,16 +18,16 @@ export const logIn = async (page: Page) => {
   await page.getByPlaceholder("Пароль").fill(PASSWORD);
   await page.getByRole("button", { name: "Войти", exact: true }).click();
 
-  const captchaExists =
-    (await page.locator("div[class*=hhcaptcha]")?.count()) > 0;
+  const hasCaptcha = await page.isVisible("div[class*=hhcaptcha]").catch(() => {
+    return false;
+  });
 
-  if (captchaExists) {
+  if (hasCaptcha) {
     throw Error(
       "Капча! Но я пока не написал обход, для капчи. Попробуй авторизоваться с этого ip из браузера, пройти капчу и повторить попытку"
     );
   }
 
-  await page.pause();
   await page.waitForSelector(MY_RESUME_SELECTOR);
 
   if (await page.isVisible(MY_RESUME_SELECTOR)) {
