@@ -48,7 +48,7 @@ const main = async () => {
   await page.getByRole("link", { name: "Мои резюме" }).click();
   console.log("Перешел на страницу Мои резюме");
 
-  await page.waitForLoadState("load");
+  await page.waitForLoadState("load", { timeout: 90000 });
   console.log("Дождался загрузки страницы");
 
   if (!(await page.isVisible("text=Поднять в поиске"))) {
