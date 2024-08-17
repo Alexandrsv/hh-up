@@ -3,7 +3,12 @@ import { LOGIN, MY_RESUME_SELECTOR, PASSWORD } from "../const";
 import { saveCookies } from "./saveCookies";
 
 export const logIn = async (page: Page) => {
-  await page.getByRole("link", { name: "Войти" }).click();
+  await page.pause();
+  await page
+    .getByRole("button", { name: "Войти" })
+    .click()
+    .catch(() => page.getByRole("link", { name: "Войти" }).click());
+
   await page.waitForLoadState("load", { timeout: 90000 });
   const withPasswordButton = await page.waitForSelector(
     "button[data-qa=expand-login-by-password]"
@@ -16,6 +21,7 @@ export const logIn = async (page: Page) => {
 
   await page.getByPlaceholder("Пароль").click();
   await page.getByPlaceholder("Пароль").fill(PASSWORD);
+
   await page.getByRole("button", { name: "Войти", exact: true }).click();
 
   const hasCaptcha = await page.isVisible("div[class*=hhcaptcha]").catch(() => {
