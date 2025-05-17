@@ -25,7 +25,9 @@ const main = async () => {
   });
 
   await loadCookies(page);
-  await page.goto("https://hh.ru/", { waitUntil: "domcontentloaded" });
+  await page.goto("https://spb.hh.ru/account/login", {
+    waitUntil: "domcontentloaded",
+  });
   await page.route("**/*.{png,jpg,jpeg}", (route) => {
     route.abort();
   });

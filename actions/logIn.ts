@@ -10,18 +10,14 @@ export const logIn = async (page: Page) => {
     .catch(() => page.getByRole("link", { name: "Войти" }).click());
 
   await page.waitForLoadState("load", { timeout: 90000 });
-  const withPasswordButton = await page.waitForSelector(
-    "button[data-qa=expand-login-by-password]"
-  );
 
-  await withPasswordButton?.click({ button: "left" });
+  await page.getByText("Почта").nth(1).click();
+  await page.getByRole("textbox").click();
+  await page.getByRole("textbox").fill(LOGIN);
+  await page.getByRole("button", { name: "Войти с паролем" }).click();
 
-  await page.getByPlaceholder("Электронная почта или телефон").click();
-  await page.getByPlaceholder("Электронная почта или телефон").fill(LOGIN);
-
-  await page.getByPlaceholder("Пароль").click();
-  await page.getByPlaceholder("Пароль").fill(PASSWORD);
-
+  await page.getByRole("textbox").first().click();
+  await page.getByRole("textbox").fill(PASSWORD);
   await page.getByRole("button", { name: "Войти", exact: true }).click();
 
   const hasCaptcha = await page.isVisible("div[class*=hhcaptcha]").catch(() => {
