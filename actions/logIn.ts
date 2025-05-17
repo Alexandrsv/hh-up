@@ -3,7 +3,7 @@ import { LOGIN, MY_RESUME_SELECTOR, PASSWORD } from "../const";
 import { saveCookies } from "./saveCookies";
 
 export const logIn = async (page: Page) => {
-  await page.pause();
+  // await page.pause();
   await page
     .getByRole("button", { name: "Войти" })
     .click()
@@ -11,7 +11,7 @@ export const logIn = async (page: Page) => {
 
   await page.waitForLoadState("load", { timeout: 90000 });
 
-  await page.getByText("Почта").nth(1).click();
+  await page.getByText("Почта").click();
   await page.getByRole("textbox").click();
   await page.getByRole("textbox").fill(LOGIN);
   await page.getByRole("button", { name: "Войти с паролем" }).click();
